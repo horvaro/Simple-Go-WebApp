@@ -1,24 +1,21 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- master
-
-pool:
-  vmImage: 'ubuntu-latest'
-
 stages:
 - stage: DEV
   jobs:
-  - job: Start WebApp
+  - job: TestWebApp
     steps:
-      - script: starting WebApp
-      - script: WebApp started
+      - script: echo "Starting Tests"
+      - script: echo "Test done"
+  - job: RunWebApp
+    steps:
+      - script: echo "Build WebApp"
+      - script: echo "Run WebApp"
 - stage: INT
   jobs:
-  - job: Start WebApp
+  - job: TestWebApp
     steps:
-      - script: starting WebApp
-      - script: WebApp started
+      - script: echo "Starting Tests"
+      - script: echo "Test done"
+  - job: RunWebApp
+    steps:
+      - script: echo "Build WebApp"
+      - script: echo "Run WebApp"
