@@ -10,10 +10,12 @@ stages:
       - task: Go@0
         inputs:
           command: test
+          arguments: -v
           workingDirectory: 
       - task: Go@0
         inputs:
           command: build
+          arguments: -v
           workingDirectory: 
   - job: Windows
     pool:
@@ -22,8 +24,10 @@ stages:
       - task: Go@0
         inputs:
           command: test
+          arguments: -v
           workingDirectory: 
       - task: Go@0
         inputs:
           command: build
+          arguments: -v
           workingDirectory: 
