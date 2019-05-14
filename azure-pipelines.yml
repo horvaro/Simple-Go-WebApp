@@ -7,11 +7,23 @@ stages:
     pool:
       vmImage: ubuntu-16.04
     steps:
-      - script: go test
-      - script: go build
+      - task: Go@0
+        inputs:
+          command: test
+          workingDirectory: 
+      - task: Go@0
+        inputs:
+          command: build
+          workingDirectory: 
   - job: Windows
     pool:
       vmImage: windows-2019
     steps:
-      - script: go test
-      - script: go build
+      - task: Go@0
+        inputs:
+          command: test
+          workingDirectory: 
+      - task: Go@0
+        inputs:
+          command: build
+          workingDirectory: 
