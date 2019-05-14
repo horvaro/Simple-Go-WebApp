@@ -1,8 +1,3 @@
-variables:
-- name: GO_VERSION
-  value: 1.11
-- group: rho-variables-dojo-1
-
 trigger: none
 
 stages:
