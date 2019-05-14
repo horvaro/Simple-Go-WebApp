@@ -11,7 +11,7 @@ go test
 go run main.go
 ```
 
-## Build and Run
+## Build and Run the WebApp
 ```
 go build
 .\Simple-Go-WebApp.exe
