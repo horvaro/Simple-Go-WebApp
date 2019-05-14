@@ -16,12 +16,17 @@ trigger:
 
 
 stages:
-- template: pipelines/stage_template.yml
-  parameters:
-    name: DEV
-    target: dev.demoapp.noser.com
-
-- template: pipelines/stage_template.yml
-  parameters:
-    name: INT
-    target: int.demoapp.noser.com
+- stage: DEV
+  jobs:
+  - job: Linux
+    pool:
+      vmImage: ubuntu-16.04
+    steps:
+      - script: go test
+      - script: go build
+  - job: Windows
+    pool:
+      vmImage: windows-2019
+    steps:
+      - script: go Test
+      - script: go build
