@@ -3,13 +3,38 @@ variables:
   value: 1.11
 - group: rho-variables-dojo-1
 
-stages:
-- template: pipelines/stage_template.yml
-  parameters:
-    name: DEV
-    target: dev.demoapp.noser.com
+trigger:
+ branches:
+   include:
+     - master
+     - develop/*
+   exclude:
+     - develop/deprecated*
+ paths:
+    exclude:
+    - README.md
 
-- template: pipelines/stage_template.yml
-  parameters:
-    name: INT
-    target: int.demoapp.noser.com
+
+stages:
+- stage: DEV
+  jobs:
+  - job: TestWebApp
+    steps:
+      - script: echo "Starting Tests with golang ver. $(GO_VERSION)"
+      - script: echo "Test done"
+  - job: RunWebApp
+    dependsOn: TestWebApp
+    steps:
+      - script: echo "Build WebApp for project $(PROJECT_NR)"
+      - script: echo "Run WebApp with password $(SUPER_SECRET_PW)"
+      - script: 
+- stage: INT
+  jobs:
+  - job: TestWebApp
+    steps:
+      - script: echo "Starting Tests"
+      - script: echo "Test done"
+  - job: RunWebApp
+    steps:
+      - script: echo "Build WebApp"
+- script: echo "Run WebApp"
