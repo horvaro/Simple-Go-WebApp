@@ -7,11 +7,59 @@ stages:
     pool:
       vmImage: ubuntu-16.04
     steps:
-      - script: go test
-      - script: go build
+      - task: Go@0
+        displayName: Test WebApp
+        inputs:
+          command: test
+          arguments: -v
+          workingDirectory: 
+      - task: Go@0
+        displayName: Build WebApp
+        inputs:
+          command: build
+          arguments: -v -o $(Build.ArtifactStagingDirectory)/simpleGolangWebApp
+          workingDirectory: 
+      - task: CopyFiles@2
+        displayName: Copy static sites
+        inputs:
+          contents: 'static/**'
+          targetFolder: $(Build.ArtifactStagingDirectory)
+      - task: CopyFiles@2
+        displayName: Copy templates
+        inputs:
+          contents: 'templates/**'
+          targetFolder: $(Build.ArtifactStagingDirectory)
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          artifactName: SimpleWebApp-Linux
   - job: Windows
     pool:
       vmImage: windows-2019
     steps:
-      - script: go test
-      - script: go build
+      - task: Go@0
+        displayName: Test WebApp
+        inputs:
+          command: test
+          arguments: -v
+          workingDirectory: 
+      - task: Go@0
+        displayName: Build WebApp
+        inputs:
+          command: build
+          arguments: -v -o $(Build.ArtifactStagingDirectory)/simpleGolangWebApp.exe
+          workingDirectory: 
+      - task: CopyFiles@2
+        displayName: Copy static sites
+        inputs:
+          contents: 'static\**'
+          targetFolder: $(Build.ArtifactStagingDirectory)
+      - task: CopyFiles@2
+        displayName: Copy templates
+        inputs:
+          contents: 'templates\**'
+          targetFolder: $(Build.ArtifactStagingDirectory)
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          artifactName: SimpleWebApp-Windows
