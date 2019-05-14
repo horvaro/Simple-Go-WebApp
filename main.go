@@ -30,7 +30,7 @@ func main() {
 	//This method takes in the URL path "/" and a function that takes in a response writer, and a http request.
 	http.HandleFunc("/", WelcomeHandler)
 
-	fmt.Println("Listening on PORT 8080")
+	fmt.Println("Listening on Port 8080")
 	//Start the web server, set the port to listen to 8080. Without a path it assumes localhost
 	//Print any errors from starting the webserver using fmt
 	fmt.Println(http.ListenAndServe(":8080", nil))
