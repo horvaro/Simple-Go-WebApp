@@ -52,12 +52,12 @@ stages:
       - task: CopyFiles@2
         displayName: Copy static sites
         inputs:
-          contents: '$(System.DefaultWorkingDirectory)\static'
+          contents: 'static\**'
           targetFolder: $(Build.ArtifactStagingDirectory)
       - task: CopyFiles@2
         displayName: Copy templates
         inputs:
-          contents: '$(System.DefaultWorkingDirectory)\templates'
+          contents: 'templates\**'
           targetFolder: $(Build.ArtifactStagingDirectory)
       - task: PublishBuildArtifacts@1
         inputs:
