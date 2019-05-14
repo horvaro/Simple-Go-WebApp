@@ -15,8 +15,12 @@ stages:
       - task: Go@0
         inputs:
           command: build
-          arguments: -v
+          arguments: -v -o $(Build.ArtifactStagingDirectory)/simpleGolangWebApp
           workingDirectory: 
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          artifactName: SimpleWebApp-Linux
   - job: Windows
     pool:
       vmImage: windows-2019
@@ -29,5 +33,9 @@ stages:
       - task: Go@0
         inputs:
           command: build
-          arguments: -v
+          arguments: -v -o $(Build.ArtifactStagingDirectory)/simpleGolangWebApp.exe
           workingDirectory: 
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          artifactName: SimpleWebApp-Windows
