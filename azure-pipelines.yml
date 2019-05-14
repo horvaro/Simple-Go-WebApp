@@ -1,40 +1,17 @@
-variables:
-- name: GO_VERSION
-  value: 1.11
-- group: rho-variables-dojo-1
-
-trigger:
- branches:
-   include:
-     - master
-     - develop/*
-   exclude:
-     - develop/deprecated*
- paths:
-    exclude:
-    - README.md
-
+trigger: none
 
 stages:
 - stage: DEV
   jobs:
-  - job: TestWebApp
+  - job: Linux
+    pool:
+      vmImage: ubuntu-16.04
     steps:
-      - script: echo "Starting Tests with golang ver. $(GO_VERSION)"
-      - script: echo "Test done"
-  - job: RunWebApp
-    dependsOn: TestWebApp
+      - script: go test
+      - script: go build
+  - job: Windows
+    pool:
+      vmImage: windows-2019
     steps:
-      - script: echo "Build WebApp for project $(PROJECT_NR)"
-      - script: echo "Run WebApp with password $(SUPER_SECRET_PW)"
-      - script: 
-- stage: INT
-  jobs:
-  - job: TestWebApp
-    steps:
-      - script: echo "Starting Tests"
-      - script: echo "Test done"
-  - job: RunWebApp
-    steps:
-      - script: echo "Build WebApp"
-      - script: echo "Run WebApp"
+      - script: go test
+      - script: go build
