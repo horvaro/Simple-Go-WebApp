@@ -11,6 +11,7 @@ stages:
       - script: echo "Starting Tests with golang ver. $(GO_VERSION)"
       - script: echo "Test done"
   - job: RunWebApp
+    dependsOn: TestWebApp
     steps:
       - script: echo "Build WebApp for project $(PROJECT_NR)"
       - script: echo "Run WebApp with password $(SUPER_SECRET_PW)"
