@@ -9,7 +9,7 @@ stages:
     name: DEV
     target: dev.demoapp.noser.com
 
-- template: stages/test.yml  # Template reference
+- template: pipelines/stage_template.yml
   parameters:
     name: INT
     target: int.demoapp.noser.com
