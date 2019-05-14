@@ -28,5 +28,5 @@ stages:
     pool:
       vmImage: windows-2019
     steps:
-      - script: go Test
+      - script: go test
       - script: go build
