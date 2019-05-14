@@ -47,4 +47,4 @@ stages:
         inputs:
           sshEndpoint: RHO-DigitalOcean-01
           runOptions: commands
-          commands: 'timeout 60 /root/goWebApp/simpleGolangWebApp'
+          commands: 'cd /root/goWebApp/ && timeout 60 ./simpleGolangWebApp &'
