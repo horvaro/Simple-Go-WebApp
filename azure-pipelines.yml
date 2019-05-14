@@ -1,0 +1,22 @@
+stages:
+- stage: DEV
+  jobs:
+  - job: TestWebApp
+    steps:
+      - script: echo "Starting Tests"
+      - script: echo "Test done"
+  - job: RunWebApp
+    dependsOn: TestWebApp
+    steps:
+      - script: echo "Build WebApp"
+      - script: echo "Run WebApp"
+- stage: INT
+  jobs:
+  - job: TestWebApp
+    steps:
+      - script: echo "Starting Tests"
+      - script: echo "Test done"
+  - job: RunWebApp
+    steps:
+      - script: echo "Build WebApp"
+      - script: echo "Run WebApp"
