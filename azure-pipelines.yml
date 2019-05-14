@@ -37,6 +37,7 @@ stages:
         displayName: Copy Artifact to Server
         inputs:
           sshEndpoint: RHO-DigitalOcean-01
+          sourceFolder: $(Build.ArtifactStagingDirectory)
           contents: '**'
           targetFolder: '~/goWebApp'
           cleanTargetFolder: true
