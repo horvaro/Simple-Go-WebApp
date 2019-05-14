@@ -33,33 +33,18 @@ stages:
         inputs:
           pathtoPublish: '$(Build.ArtifactStagingDirectory)'
           artifactName: SimpleWebApp-Linux
-  - job: Windows
-    pool:
-      vmImage: windows-2019
-    steps:
-      - task: Go@0
-        displayName: Test WebApp
+      - task: CopyFilesOverSSH@0
+        displayName: Copy Artifact to Server
         inputs:
-          command: test
-          arguments: -v
-          workingDirectory: 
-      - task: Go@0
-        displayName: Build WebApp
+          sshEndpoint: RHO-DigitalOcean-01
+          sourceFolder: $(Build.ArtifactStagingDirectory)
+          contents: '**'
+          targetFolder: '~/goWebApp'
+          cleanTargetFolder: true
+          overwrite: true
+      - task: SSH@0
+        displayName: Run WebApp
         inputs:
-          command: build
-          arguments: -v -o $(Build.ArtifactStagingDirectory)/simpleGolangWebApp.exe
-          workingDirectory: 
-      - task: CopyFiles@2
-        displayName: Copy static sites
-        inputs:
-          contents: 'static\**'
-          targetFolder: $(Build.ArtifactStagingDirectory)
-      - task: CopyFiles@2
-        displayName: Copy templates
-        inputs:
-          contents: 'templates\**'
-          targetFolder: $(Build.ArtifactStagingDirectory)
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-          artifactName: SimpleWebApp-Windows
+          sshEndpoint: RHO-DigitalOcean-01
+          runOptions: commands
+          commands: 'cd /root/goWebApp/ && timeout 60 ./simpleGolangWebApp &'
