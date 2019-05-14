@@ -3,17 +3,7 @@ variables:
   value: 1.11
 - group: rho-variables-dojo-1
 
-trigger:
- branches:
-   include:
-     - master
-     - develop/*
-   exclude:
-     - develop/deprecated*
- paths:
-    exclude:
-    - README.md
-
+trigger: none
 
 stages:
 - stage: DEV
